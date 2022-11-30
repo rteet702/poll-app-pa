@@ -1,25 +1,24 @@
-import axios from "axios";
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
+import ButtonFilled from "../components/button-filled";
+import ButtonOutline from "../components/button-outline";
 
-type Props = {
-    response: string;
-};
-
-const Home: NextPage<Props> = ({ response }) => {
+const Home: NextPage = () => {
     return (
-        <div>
-            <h1 className="text-4xl">{response}</h1>
+        <div className="h-screen flex items-center justify-center">
+            <div className="bg-neutral-700 container p-12 backdrop-blur-md bg-opacity-5 shadow-lg rounded-lg">
+                <h1 className="text-8xl">Pollgram</h1>
+                <p className="py-5">Whatever questions you have... ask away!</p>
+                <ButtonFilled
+                    text="Click me!"
+                    onClick={() => console.log("test")}
+                />
+                <ButtonOutline
+                    text="Click me!"
+                    onClick={() => console.log("test")}
+                />
+            </div>
         </div>
     );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-    const response = await axios.get(process.env.SERVER_URL + "/api/test");
-    return {
-        props: {
-            response: response.data.message,
-        },
-    };
 };
 
 export default Home;
