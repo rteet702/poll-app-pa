@@ -1,6 +1,8 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
+import pollRoutes from "./routes/poll.routes";
+const cors = require("cors");
 
 // dotenv config
 dotenv.config();
@@ -9,7 +11,13 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 8000;
 
+// basic configs
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 // route declarations
+pollRoutes(app);
 
 // spin up server
 const server = app.listen(port, () => {
