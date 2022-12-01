@@ -21,7 +21,7 @@ const server = app.listen(port, () => {
 //socketio
 const io = new Server({
     cors: {
-        origin: ["http://localhost:3000", "https://pollgram.teets.dev:*"],
+        origin: ["http://localhost:3000", "https://pollgram.teets.dev"],
         methods: ["GET", "POST"],
         allowedHeaders: ["secure-header"],
     },
