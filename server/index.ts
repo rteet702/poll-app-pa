@@ -14,7 +14,12 @@ const port = process.env.PORT || 8000;
 // basic configs
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+    cors({
+        origin: ["http://localhost:3000", "https://pollgram.teets.dev"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    })
+);
 
 // route declarations
 pollRoutes(app);
