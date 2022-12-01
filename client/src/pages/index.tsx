@@ -1,8 +1,5 @@
 import { NextPage } from "next";
-import ButtonFilled from "../components/button-filled";
-import ButtonOutline from "../components/button-outline";
-import ButtonCircle from "../components/button-circle";
-import ButtonCircleOutline from "../components/button-circle-outline";
+import PollForm from "../components/PollForm";
 
 const Home: NextPage = () => {
     return (
@@ -11,24 +8,9 @@ const Home: NextPage = () => {
                 <h1 className="text-8xl">Pollgram</h1>
                 <p className="py-5">Whatever questions you have... ask away!</p>
 
-                <div className="flex gap-5">
-                    <ButtonFilled
-                        text="Click me!"
-                        onClick={() => console.log("test")}
-                    />
-                    <ButtonOutline
-                        text="Click me!"
-                        onClick={() => console.log("test")}
-                    />
-                    <ButtonCircle
-                        text="➜"
-                        onClick={() => console.log("test")}
-                    />
-                    <ButtonCircleOutline
-                        text="➜"
-                        onClick={() => console.log("test")}
-                    />
-                </div>
+                <div className="py-6" />
+
+                <PollForm />
             </div>
         </div>
     );
