@@ -1,18 +1,20 @@
 import TextInput from "../components/TextInput";
 import ButtonOutline from "../components/button-outline";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 const PollForm = () => {
     const [question, setQuestion] = useState("");
     const [firstOption, setFirstOption] = useState("");
     const [secondOption, setSecondOption] = useState("");
+    const router = useRouter();
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
         if (!server) return;
-        await axios.post(server + "/api/polls", {
+        const poll = await axios.post(server + "/api/polls", {
             question,
             firstOption,
             secondOption,
@@ -20,6 +22,7 @@ const PollForm = () => {
         setQuestion("");
         setFirstOption("");
         setSecondOption("");
+        router.push(`/polls/${poll.data.poll.id}`);
     };
 
     return (
