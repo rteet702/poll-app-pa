@@ -29,7 +29,7 @@ const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}!`);
 });
 
-//socketio
+// socketio
 const io = new Server({
     cors: {
         origin: ["http://localhost:3000", "https://pollgram.teets.dev"],
@@ -41,9 +41,9 @@ const io = new Server({
 io.listen(server);
 
 io.on("connection", (socket) => {
-    console.log(`New socket connection: ${socket.id}.`);
+    console.log(`[Socket.IO]: New socket connection: ${socket.id}.`);
 
     socket.on("disconnect", () => {
-        console.log(`Socket disconnected: ${socket.id}.`);
+        console.log(`[Socket.IO]: Socket disconnected: ${socket.id}.`);
     });
 });

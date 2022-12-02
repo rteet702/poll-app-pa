@@ -11,15 +11,15 @@ const PollForm = () => {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
-        if (server) {
-            const response = await axios.post(server + "/api/polls", {
-                question,
-                firstOption,
-                secondOption,
-            });
-            return true;
-        }
-        return false;
+        if (!server) return;
+        await axios.post(server + "/api/polls", {
+            question,
+            firstOption,
+            secondOption,
+        });
+        setQuestion("");
+        setFirstOption("");
+        setSecondOption("");
     };
 
     return (

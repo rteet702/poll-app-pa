@@ -14,4 +14,12 @@ export default {
             poll: newPoll,
         });
     },
+    getOne: async (request: Request, response: Response) => {
+        const { id } = request.params;
+        const poll = await prisma.polls.findFirst({ where: { id: id } });
+        if (!poll) {
+            return response.status(404).json({ error: "No poll found." });
+        }
+        response.status(200).json({ poll });
+    },
 };
