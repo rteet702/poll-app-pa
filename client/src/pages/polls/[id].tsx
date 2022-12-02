@@ -32,7 +32,9 @@ const DynamicPollPage: NextPage = () => {
             });
     }, [id]);
 
-    return <div>{pollData?.question}</div>;
+    if (!pollData) return <div>Loading...</div>;
+
+    return <div>{pollData.question}</div>;
 };
 
 export default DynamicPollPage;

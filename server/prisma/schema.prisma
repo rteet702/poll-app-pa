@@ -8,8 +8,11 @@ datasource db {
 }
 
 model polls {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  question  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  question     String
+  firstOption  String
+  secondOption String
+  author       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
 }
