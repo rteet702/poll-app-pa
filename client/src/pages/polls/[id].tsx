@@ -39,6 +39,13 @@ const DynamicPollPage: NextPage = () => {
             });
     }, [id]);
 
+    const handleVote = async (option: number) => {
+        const result = await axios.post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/polls/${id}`,
+            { option }
+        );
+    };
+
     if (!pollData) return <div>Loading...</div>;
 
     return (
@@ -47,8 +54,14 @@ const DynamicPollPage: NextPage = () => {
                 <h1 className="text-6xl text-center">{pollData.question}</h1>
 
                 <div className="flex gap-10 h-[300px] pt-10">
-                    <VoteButtonCyan text={pollData.firstOption} />
-                    <VoteButtonPurple text={pollData.secondOption} />
+                    <VoteButtonCyan
+                        text={pollData.firstOption}
+                        onClick={() => handleVote(0)}
+                    />
+                    <VoteButtonPurple
+                        text={pollData.secondOption}
+                        onClick={() => handleVote(1)}
+                    />
                 </div>
             </div>
         </div>
