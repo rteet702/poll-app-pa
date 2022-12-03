@@ -86,54 +86,6 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                         <h2>Thanks for voting!</h2>
 
                         <div className="py-10" />
-
-                        <div>
-                            <h2 className="text-4xl text-center">
-                                Current Standing
-                            </h2>
-
-                            <div className="py-10" />
-                            {pollData.firstVotes.length >
-                            pollData.secondVotes.length ? (
-                                <ProgressBar
-                                    completed={pollData.firstVotes.length}
-                                    maxCompleted={
-                                        pollData.firstVotes.length +
-                                        pollData.secondVotes.length
-                                    }
-                                    borderRadius="none"
-                                    bgColor="cyan"
-                                    baseBgColor="purple"
-                                    height="3rem"
-                                    labelAlignment="center"
-                                    customLabel={`${pollData.firstOption}  ${
-                                        (pollData.firstVotes.length /
-                                            (pollData.firstVotes.length +
-                                                pollData.secondVotes.length)) *
-                                        100
-                                    }%`}
-                                />
-                            ) : (
-                                <ProgressBar
-                                    completed={pollData.secondVotes.length}
-                                    maxCompleted={
-                                        pollData.firstVotes.length +
-                                        pollData.secondVotes.length
-                                    }
-                                    borderRadius="none"
-                                    bgColor="purple"
-                                    baseBgColor="cyan"
-                                    height="3rem"
-                                    labelAlignment="center"
-                                    customLabel={`${pollData.secondOption} | ${
-                                        (pollData.secondVotes.length /
-                                            (pollData.firstVotes.length +
-                                                pollData.secondVotes.length)) *
-                                        100
-                                    }%`}
-                                />
-                            )}
-                        </div>
                     </div>
                 ) : (
                     <div className="flex gap-10 h-[300px] pt-10">
@@ -149,6 +101,52 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                 )}
 
                 <div className="py-10" />
+
+                <div>
+                    <h2 className="text-4xl text-center">Current Standing</h2>
+
+                    <div className="py-10" />
+                    {pollData.firstVotes.length >
+                    pollData.secondVotes.length ? (
+                        <ProgressBar
+                            completed={pollData.firstVotes.length}
+                            maxCompleted={
+                                pollData.firstVotes.length +
+                                pollData.secondVotes.length
+                            }
+                            borderRadius="none"
+                            bgColor="cyan"
+                            baseBgColor="purple"
+                            height="3rem"
+                            labelAlignment="center"
+                            customLabel={`${pollData.firstOption}  ${
+                                (pollData.firstVotes.length /
+                                    (pollData.firstVotes.length +
+                                        pollData.secondVotes.length)) *
+                                100
+                            }%`}
+                        />
+                    ) : (
+                        <ProgressBar
+                            completed={pollData.secondVotes.length}
+                            maxCompleted={
+                                pollData.firstVotes.length +
+                                pollData.secondVotes.length
+                            }
+                            borderRadius="none"
+                            bgColor="purple"
+                            baseBgColor="cyan"
+                            height="3rem"
+                            labelAlignment="center"
+                            customLabel={`${pollData.secondOption} | ${
+                                (pollData.secondVotes.length /
+                                    (pollData.firstVotes.length +
+                                        pollData.secondVotes.length)) *
+                                100
+                            }%`}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );
