@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 type Poll = {
     id: string;
     question: string;
+    firstOption: string;
+    firstVotes: string[];
+    secondOption: string;
+    secondVotes: string[];
     createdAt: Date;
     updatedAt: Date;
 };
@@ -34,7 +38,22 @@ const DynamicPollPage: NextPage = () => {
 
     if (!pollData) return <div>Loading...</div>;
 
-    return <div>{pollData.question}</div>;
+    return (
+        <div className="h-screen flex items-center justify-center">
+            <div className="bg-neutral-700 container p-12 backdrop-blur-md bg-opacity-5 shadow-lg rounded-lg">
+                <h1 className="text-6xl text-center">{pollData.question}</h1>
+
+                <div className="flex gap-10 h-[300px] pt-10">
+                    <button className="flex-1 bg-cyan-500 hover:bg-cyan-600 transition-colors rounded shadow-xl text-4xl">
+                        {pollData.firstOption}
+                    </button>
+                    <button className="flex-1 bg-purple-500 hover:bg-purple-600 transition-colors rounded shadow-xl text-4xl">
+                        {pollData.secondOption}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default DynamicPollPage;
