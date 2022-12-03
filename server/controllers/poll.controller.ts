@@ -26,7 +26,7 @@ export default {
         response.status(200).json({ poll });
     },
     addVote: async (request: Request, response: Response) => {
-        const { option } = request.body;
+        const { option, ip } = request.body;
         const { id } = request.params;
         let update;
         // first option
@@ -35,7 +35,7 @@ export default {
                 where: { id: id },
                 data: {
                     firstVotes: {
-                        push: request.ip,
+                        push: ip,
                     },
                 },
             });
@@ -46,7 +46,7 @@ export default {
                 where: { id: id },
                 data: {
                     secondVotes: {
-                        push: request.ip,
+                        push: ip,
                     },
                 },
             });
