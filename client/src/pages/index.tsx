@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import PollForm from "../components/PollForm";
-import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import ButtonFilled from "../components/button-filled";
 
@@ -12,15 +11,6 @@ const Home: NextPage = () => {
         if (!server) {
             return;
         }
-        const socket = io(server, {
-            extraHeaders: {
-                "secure-header": "true",
-            },
-        });
-
-        return () => {
-            socket.close();
-        };
     }, []);
 
     return (

@@ -43,6 +43,12 @@ io.listen(server);
 io.on("connection", (socket) => {
     console.log(`[Socket.IO]: New socket connection: ${socket.id}.`);
 
+    socket.emit("refetch-poll");
+
+    socket.on("new-poll", () => {
+        io.emit("refetch-poll");
+    });
+
     socket.on("disconnect", () => {
         console.log(`[Socket.IO]: Socket disconnected: ${socket.id}.`);
     });
