@@ -40,7 +40,7 @@ const DynamicPollPage: NextPage = () => {
     }, [id]);
 
     const handleVote = async (option: number) => {
-        const result = await axios.post(
+        const result = await axios.put(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/polls/${id}`,
             { option }
         );

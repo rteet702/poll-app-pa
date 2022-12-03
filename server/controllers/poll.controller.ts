@@ -25,4 +25,32 @@ export default {
         }
         response.status(200).json({ poll });
     },
+    addVote: async (request: Request, response: Response) => {
+        const { option } = request.body;
+        const { id } = request.params;
+        let update;
+        // first option
+        if (option === 0) {
+            update = await prisma.polls.update({
+                where: { id: id },
+                data: {
+                    firstVotes: {
+                        push: request.ip,
+                    },
+                },
+            });
+        }
+        // second option
+        else {
+            update = await prisma.polls.update({
+                where: { id: id },
+                data: {
+                    secondVotes: {
+                        push: request.ip,
+                    },
+                },
+            });
+        }
+        response.status(201).json({ message: "Success voting.", poll: update });
+    },
 };
