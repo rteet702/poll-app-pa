@@ -66,7 +66,7 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
     const handleVote = async (option: number) => {
         const result = await axios.put(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/polls/${id}`,
-            { option }
+            { option, ip }
         );
         if (socket) {
             socket.emit("new-poll");
@@ -106,11 +106,12 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                                     baseBgColor="purple"
                                     height="3rem"
                                     labelAlignment="center"
-                                    customLabel={`${pollData.firstOption} | ${
-                                        pollData.firstVotes.length /
-                                        (pollData.firstVotes.length +
-                                            pollData.secondVotes.length)
-                                    }`}
+                                    customLabel={`${pollData.firstOption}  ${
+                                        (pollData.firstVotes.length /
+                                            (pollData.firstVotes.length +
+                                                pollData.secondVotes.length)) *
+                                        100
+                                    }%`}
                                 />
                             ) : (
                                 <ProgressBar
