@@ -14,6 +14,13 @@ type Poll = {
     updatedAt: Date;
 };
 
+const fetchById = async (id: string | string[]) => {
+    const poll = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/polls/${id}`
+    );
+    return poll.data.poll;
+};
+
 const DynamicPollPage: NextPage = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -21,13 +28,7 @@ const DynamicPollPage: NextPage = () => {
 
     useEffect(() => {
         if (!id) return;
-        const fetchById = async () => {
-            const poll = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/polls/${id}`
-            );
-            return poll.data.poll;
-        };
-        fetchById()
+        fetchById(id)
             .then((poll) => {
                 setPollData(poll);
             })
