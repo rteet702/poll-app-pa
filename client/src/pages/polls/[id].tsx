@@ -2,6 +2,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import VoteButtonCyan from "../../components/VoteButtonCyan";
+import VoteButtonPurple from "../../components/VoteButtonPurple";
 
 type Poll = {
     id: string;
@@ -45,12 +47,8 @@ const DynamicPollPage: NextPage = () => {
                 <h1 className="text-6xl text-center">{pollData.question}</h1>
 
                 <div className="flex gap-10 h-[300px] pt-10">
-                    <button className="flex-1 bg-cyan-500 hover:bg-cyan-600 transition-colors rounded shadow-xl text-4xl">
-                        {pollData.firstOption}
-                    </button>
-                    <button className="flex-1 bg-purple-500 hover:bg-purple-600 transition-colors rounded shadow-xl text-4xl">
-                        {pollData.secondOption}
-                    </button>
+                    <VoteButtonCyan text={pollData.firstOption} />
+                    <VoteButtonPurple text={pollData.secondOption} />
                 </div>
             </div>
         </div>
