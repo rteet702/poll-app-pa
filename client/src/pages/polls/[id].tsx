@@ -2,11 +2,11 @@ import { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { io, Socket } from "socket.io-client";
-import ProgressBar from "@ramonak/react-progress-bar";
 import axios from "axios";
 import VoteButtonCyan from "../../components/VoteButtonCyan";
 import VoteButtonPurple from "../../components/VoteButtonPurple";
 import Link from "next/link";
+import VoteBar from "../../components/VoteBar";
 
 type Poll = {
     id: string;
@@ -110,46 +110,14 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                     <h2 className="text-4xl text-center">Current Standing</h2>
 
                     <div className="py-10" />
-                    {pollData.firstVotes.length >
-                    pollData.secondVotes.length ? (
-                        <ProgressBar
-                            completed={pollData.firstVotes.length}
-                            maxCompleted={
-                                pollData.firstVotes.length +
-                                pollData.secondVotes.length
-                            }
-                            borderRadius="none"
-                            bgColor="cyan"
-                            baseBgColor="purple"
-                            height="3rem"
-                            labelAlignment="center"
-                            customLabel={`${pollData.firstOption}  ${
-                                (pollData.firstVotes.length /
-                                    (pollData.firstVotes.length +
-                                        pollData.secondVotes.length)) *
-                                100
-                            }%`}
-                        />
-                    ) : (
-                        <ProgressBar
-                            completed={pollData.secondVotes.length}
-                            maxCompleted={
-                                pollData.firstVotes.length +
-                                pollData.secondVotes.length
-                            }
-                            borderRadius="none"
-                            bgColor="purple"
-                            baseBgColor="cyan"
-                            height="3rem"
-                            labelAlignment="center"
-                            customLabel={`${pollData.secondOption} | ${
-                                (pollData.secondVotes.length /
-                                    (pollData.firstVotes.length +
-                                        pollData.secondVotes.length)) *
-                                100
-                            }%`}
-                        />
-                    )}
+
+                    <VoteBar
+                        options={[pollData.firstOption, pollData.secondOption]}
+                        votes={[
+                            pollData.firstVotes.length,
+                            pollData.secondVotes.length,
+                        ]}
+                    />
                 </div>
             </div>
         </div>
