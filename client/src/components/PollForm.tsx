@@ -4,7 +4,11 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const PollForm = () => {
+interface Props {
+    ip: string;
+}
+
+const PollForm = ({ ip }: Props) => {
     const [question, setQuestion] = useState("");
     const [firstOption, setFirstOption] = useState("");
     const [secondOption, setSecondOption] = useState("");
@@ -18,6 +22,7 @@ const PollForm = () => {
             question,
             firstOption,
             secondOption,
+            ip,
         });
         setQuestion("");
         setFirstOption("");

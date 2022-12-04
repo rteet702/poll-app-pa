@@ -3,13 +3,14 @@ import { Response, Request } from "express";
 
 export default {
     create: async (request: Request, response: Response) => {
-        const { question, firstOption, secondOption } = request.body;
+        const { question, firstOption, secondOption, ip } = request.body;
 
         const newPoll = await prisma.polls.create({
             data: {
                 question,
                 firstOption,
                 secondOption,
+                author: [ip],
             },
         });
 
