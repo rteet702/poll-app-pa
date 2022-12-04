@@ -74,7 +74,12 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
         }
     };
 
-    if (!pollData) return <div>Loading...</div>;
+    if (!pollData)
+        return (
+            <div className="w-screen h-screen flex items-center justify-center">
+                <p>Loading...</p>
+            </div>
+        );
 
     return (
         <div className="h-screen flex items-center justify-center">

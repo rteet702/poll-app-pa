@@ -8,11 +8,12 @@ const VoteBar = ({ options, votes }: Props) => {
 
     console.log(options, votes);
 
-    if (!options) return <div>Loading...</div>;
+    if (!options) return <p>Loading...</p>;
 
     if (votes[0] < 1 && votes[1] < 1) {
         return <div>No votes yet...</div>;
     }
+
     return (
         <div className="flex gap-5">
             {options.map((option, index) => {
@@ -26,7 +27,7 @@ const VoteBar = ({ options, votes }: Props) => {
                             flex: votes[index],
                             backgroundColor: colors[index],
                         }}
-                        className="p-5 text-center"
+                        className="p-5 text-center transition-all"
                     >
                         {option}
                     </div>
