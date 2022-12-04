@@ -6,6 +6,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import axios from "axios";
 import VoteButtonCyan from "../../components/VoteButtonCyan";
 import VoteButtonPurple from "../../components/VoteButtonPurple";
+import Link from "next/link";
 
 type Poll = {
     id: string;
@@ -78,6 +79,9 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
     return (
         <div className="h-screen flex items-center justify-center">
             <div className="bg-neutral-700 container p-12 backdrop-blur-md bg-opacity-5 shadow-lg rounded-lg">
+                <Link className="float-right" href="/">
+                    Home
+                </Link>
                 <h1 className="text-6xl text-center">{pollData.question}</h1>
 
                 {pollData.firstVotes.includes(ip) ||

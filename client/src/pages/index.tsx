@@ -2,6 +2,7 @@ import { NextPage, GetServerSideProps } from "next";
 import PollForm from "../components/PollForm";
 import { useEffect, useState } from "react";
 import ButtonFilled from "../components/button-filled";
+import Link from "next/link";
 
 interface Props {
     ip: string;
@@ -20,7 +21,10 @@ const Home: NextPage<Props> = ({ ip }) => {
     return (
         <div className="h-screen flex items-center justify-center">
             <div className="bg-neutral-700 container p-12 backdrop-blur-md bg-opacity-5 shadow-lg rounded-lg">
-                <button className="float-right">Login</button>
+                <div className="float-right flex gap-5">
+                    <Link href="/account">Your Polls</Link>
+                    <button>Login</button>
+                </div>
 
                 <h1 className="text-8xl">Pollgram</h1>
 
