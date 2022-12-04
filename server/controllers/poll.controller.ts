@@ -26,6 +26,25 @@ export default {
         }
         response.status(200).json({ poll });
     },
+    getBy: async (request: Request, response: Response) => {
+        const { ip } = request.body;
+        if (!ip) {
+            const polls = await prisma.polls.findMany({});
+            return response.status(200).json({ polls });
+        }
+
+        const polls = await prisma.polls.findMany({
+            where: {
+                author: {
+                    hasSome: [ip],
+                },
+            },
+        });
+        if (!polls) {
+            return response.status(404).json({ error: "No polls found." });
+        }
+        response.status(200).json({ polls });
+    },
     addVote: async (request: Request, response: Response) => {
         const { option, ip } = request.body;
         const { id } = request.params;
