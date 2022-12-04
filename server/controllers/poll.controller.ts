@@ -3,13 +3,14 @@ import { Response, Request } from "express";
 
 export default {
     create: async (request: Request, response: Response) => {
-        const { question, firstOption, secondOption } = request.body;
+        const { question, firstOption, secondOption, ip } = request.body;
 
         const newPoll = await prisma.polls.create({
             data: {
                 question,
                 firstOption,
                 secondOption,
+                author: [ip],
             },
         });
 
@@ -24,6 +25,25 @@ export default {
             return response.status(404).json({ error: "No poll found." });
         }
         response.status(200).json({ poll });
+    },
+    getBy: async (request: Request, response: Response) => {
+        const { ip } = request.body;
+        if (!ip) {
+            const polls = await prisma.polls.findMany({});
+            return response.status(200).json({ polls });
+        }
+
+        const polls = await prisma.polls.findMany({
+            where: {
+                author: {
+                    hasSome: [ip],
+                },
+            },
+        });
+        if (!polls) {
+            return response.status(404).json({ error: "No polls found." });
+        }
+        response.status(200).json({ polls });
     },
     addVote: async (request: Request, response: Response) => {
         const { option, ip } = request.body;

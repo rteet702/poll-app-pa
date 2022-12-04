@@ -1,9 +1,13 @@
-import { NextPage } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import PollForm from "../components/PollForm";
 import { useEffect, useState } from "react";
 import ButtonFilled from "../components/button-filled";
 
-const Home: NextPage = () => {
+interface Props {
+    ip: string;
+}
+
+const Home: NextPage<Props> = ({ ip }) => {
     const [formVisibility, setFormVisibility] = useState(false);
 
     useEffect(() => {
@@ -30,7 +34,7 @@ const Home: NextPage = () => {
                         }}
                     />
                 ) : (
-                    <PollForm />
+                    <PollForm ip={ip} />
                 )}
             </div>
         </div>
@@ -38,3 +42,23 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    let ip;
+
+    const { req } = context;
+
+    if (req.headers["x-forwarded-for"]) {
+        ip = (req.headers["x-forwarded-for"] as string).split(",")[0];
+    } else if (req.headers["x-real-ip"]) {
+        ip = req.connection.remoteAddress;
+    } else {
+        ip = req.connection.remoteAddress;
+    }
+
+    console.log(ip);
+    return {
+        props: {
+            ip,
+        },
+    };
+};
