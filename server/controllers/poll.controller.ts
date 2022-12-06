@@ -3,7 +3,15 @@ import { Response, Request } from "express";
 
 export default {
     create: async (request: Request, response: Response) => {
-        const { question, firstOption, secondOption, ip } = request.body;
+        const { question, firstOption, secondOption, ip, expiresAfter } =
+            request.body;
+        let expiresAt;
+
+        if (expiresAfter) {
+            expiresAt = new Date(new Date().valueOf() + expiresAfter * 60000);
+        }
+
+        console.log(expiresAt);
 
         const newPoll = await prisma.polls.create({
             data: {
@@ -11,6 +19,7 @@ export default {
                 firstOption,
                 secondOption,
                 author: [ip],
+                expiresAt,
             },
         });
 

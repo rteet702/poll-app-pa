@@ -12,6 +12,7 @@ const PollForm = ({ ip }: Props) => {
     const [question, setQuestion] = useState("");
     const [firstOption, setFirstOption] = useState("");
     const [secondOption, setSecondOption] = useState("");
+    const [expiresAfter, setExpireAfter] = useState<number>();
     const router = useRouter();
 
     const handleSubmit = async (event: FormEvent) => {
@@ -23,6 +24,7 @@ const PollForm = ({ ip }: Props) => {
             firstOption,
             secondOption,
             ip,
+            expiresAfter,
         });
         setQuestion("");
         setFirstOption("");
@@ -54,6 +56,13 @@ const PollForm = ({ ip }: Props) => {
                 value={secondOption}
                 onChange={(e: FormEvent<HTMLInputElement>) =>
                     setSecondOption(e.currentTarget.value)
+                }
+            />
+            <TextInput
+                placeholder="time in minutes..."
+                value={expiresAfter}
+                onChange={(e: FormEvent<HTMLInputElement>) =>
+                    setExpireAfter(Number(e.currentTarget.value))
                 }
             />
 
