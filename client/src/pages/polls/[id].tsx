@@ -17,6 +17,7 @@ type Poll = {
     secondVotes: string[];
     createdAt: Date;
     updatedAt: Date;
+    expiresAt: Date;
 };
 
 interface Props {
@@ -80,6 +81,42 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                 <p>Loading...</p>
             </div>
         );
+
+    if (pollData.expiresAt < new Date()) {
+        return (
+            <div className="h-screen flex items-center justify-center">
+                <div className="bg-neutral-700 container p-12 backdrop-blur-md bg-opacity-5 shadow-lg rounded-lg">
+                    <Link className="float-right" href="/">
+                        Home
+                    </Link>
+                    <h1 className="text-6xl text-center">
+                        {pollData.question}
+                    </h1>
+
+                    <div className="py-10" />
+
+                    <h2 className="text-center text-4xl">Poll Expired!</h2>
+
+                    <div className="py-10" />
+
+                    <div>
+                        <h2 className="text-4xl text-center">Results</h2>
+
+                        <div className="py-3" />
+
+                        <div className="flex items-center justify-between">
+                            <p>{pollData.firstOption}</p>
+                            <p>{pollData.firstVotes.length}</p>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <p>{pollData.secondOption}</p>
+                            <p>{pollData.secondVotes.length}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="h-screen flex items-center justify-center">
