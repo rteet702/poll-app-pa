@@ -102,13 +102,13 @@ const DynamicPollPage: NextPage<Props> = ({ ip }) => {
                     <div>
                         <h2 className="text-4xl text-center">Results</h2>
 
-                        <div className="py-3" />
+                        <div className="py-5" />
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between w-2/4 mx-auto">
                             <p>{pollData.firstOption}</p>
                             <p>{pollData.firstVotes.length}</p>
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between w-2/4 mx-auto">
                             <p>{pollData.secondOption}</p>
                             <p>{pollData.secondVotes.length}</p>
                         </div>
