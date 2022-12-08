@@ -82,4 +82,15 @@ export default {
         }
         response.status(201).json({ message: "Success voting.", poll: update });
     },
+    deletePoll: async (request: Request, response: Response) => {
+        const { id } = request.params;
+        await prisma.polls.delete({
+            where: {
+                id: id,
+            },
+        });
+        response
+            .status(200)
+            .json({ message: "Successfully removed poll from db." });
+    },
 };

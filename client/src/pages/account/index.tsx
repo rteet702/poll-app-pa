@@ -18,8 +18,9 @@ type Poll = {
     updatedAt: Date;
 };
 
+const server = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const fetchPolls = async (ip: string) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
     const response = await axios.get(`${server}/api/polls`, { params: { ip } });
     return response.data.polls;
 };
@@ -32,6 +33,27 @@ const AccountPage: NextPage<Props> = ({ ip }) => {
             .then((polls) => setPolls(polls))
             .catch((error) => console.error(error));
     }, []);
+
+    const handleDelete = (
+        e: React.MouseEvent<HTMLElement>,
+        deletedPoll: Poll
+    ) => {
+        axios
+            .delete(`${server}/api/polls/${deletedPoll.id}`)
+            .then((response) => {
+                setPolls((prev) =>
+                    prev?.filter((poll) => {
+                        if (deletedPoll.id === poll.id) {
+                            return false;
+                        }
+                        return true;
+                    })
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     if (!polls) {
         return (
@@ -59,10 +81,16 @@ const AccountPage: NextPage<Props> = ({ ip }) => {
 
                 {polls.map((poll, index) => {
                     return (
-                        <div className="" key={index}>
+                        <div className="flex justify-between" key={index}>
                             <Link href={`/polls/${poll.id}`}>
                                 {poll.question}
                             </Link>
+                            <div className="flex gap-5">
+                                <Link href={`/edit/${poll.id}`}>Edit</Link>
+                                <button onClick={(e) => handleDelete(e, poll)}>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     );
                 })}
