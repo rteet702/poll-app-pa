@@ -93,4 +93,28 @@ export default {
             .status(200)
             .json({ message: "Successfully removed poll from db." });
     },
+    editPoll: async (request: Request, response: Response) => {
+        const { question, firstOption, secondOption, ip, expiresAfter, id } =
+            request.body;
+        let expiresAt;
+
+        if (expiresAfter) {
+            expiresAt = new Date(new Date().valueOf() + expiresAfter * 60000);
+        }
+
+        const edit = await prisma.polls.update({
+            where: {
+                id: id,
+            },
+            data: {
+                question,
+                firstOption,
+                secondOption,
+                author: [ip],
+                expiresAt,
+            },
+        });
+
+        response.status(200).json({ edit });
+    },
 };
