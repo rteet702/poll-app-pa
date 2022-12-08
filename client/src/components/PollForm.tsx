@@ -71,7 +71,7 @@ const PollForm = ({ ip, poll }: Props) => {
     if (poll) {
         return (
             <form className="w-2/3 flex flex-col gap-5" onSubmit={handleEdit}>
-                <p className="text-3xl">Editing '{poll.question}'</p>
+                <p className="text-3xl">Editing {poll.question}</p>
                 <TextInput
                     placeholder="What's your debate?"
                     value={question}
