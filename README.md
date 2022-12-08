@@ -12,8 +12,8 @@
 -   [x] Users can create a poll using a form
 -   [x] Real-time updates on the poll. ( socket.io )
 -   [x] Each poll will generate its own URL.
--   [ ] User's can EDIT their polls after the point of posting.
--   [ ] User's can DELETE their poll at any point.
+-   [x] User's can EDIT their polls after the point of posting.
+-   [x] User's can DELETE their poll at any point.
 
 ## Feature List ( Backlog )
 
