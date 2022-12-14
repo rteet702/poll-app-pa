@@ -30,12 +30,21 @@ const PollForm = ({ ip, poll }: Props) => {
         poll ? poll.secondOption : ""
     );
     const [expiresAfter, setExpireAfter] = useState<number>();
+    const [error, setError] = useState("");
     const router = useRouter();
 
     const handleCreate = async (event: FormEvent) => {
         event.preventDefault();
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
         if (!server) return;
+
+        if (!question || !firstOption || !secondOption) {
+            setError(
+                "Question, First Option, and Second Option are all required!"
+            );
+            return;
+        }
+
         const poll = await axios.post(server + "/api/polls", {
             question,
             firstOption,
@@ -53,6 +62,12 @@ const PollForm = ({ ip, poll }: Props) => {
         event.preventDefault();
         const server = process.env.NEXT_PUBLIC_SERVER_URL;
         if (!server) return;
+        if (!question || !firstOption || !secondOption) {
+            setError(
+                "Question, First Option, and Second Option are all required!"
+            );
+            return;
+        }
         const edit = await axios.put(server + "/api/polls", {
             id: poll?.id,
             question,
@@ -72,6 +87,7 @@ const PollForm = ({ ip, poll }: Props) => {
         return (
             <form className="w-2/3 flex flex-col gap-5" onSubmit={handleEdit}>
                 <p className="text-3xl">Editing {poll.question}</p>
+                {error && <p className="text-red-500">{error}</p>}
                 <TextInput
                     placeholder="What's your debate?"
                     value={question}
@@ -114,6 +130,7 @@ const PollForm = ({ ip, poll }: Props) => {
     // if creating
     return (
         <form className="w-2/3 flex flex-col gap-5" onSubmit={handleCreate}>
+            {error && <p className="text-red-500">{error}</p>}
             <TextInput
                 placeholder="What's your debate?"
                 value={question}

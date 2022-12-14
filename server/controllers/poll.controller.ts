@@ -7,7 +7,7 @@ export default {
             request.body;
         let expiresAt;
 
-        if (expiresAfter) {
+        if (expiresAfter && expiresAfter > 0) {
             expiresAt = new Date(new Date().valueOf() + expiresAfter * 60000);
         }
 
